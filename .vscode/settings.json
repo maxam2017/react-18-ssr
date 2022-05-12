@@ -1,0 +1,14 @@
+{
+  "editor.formatOnSave": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "css.validate": false,
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode"
+  },
+  "i18n-ally.localesPaths": ["src/locales"],
+  "i18n-ally.displayLanguage": "en-US",
+  "i18n-ally.sourceLanguage": "en-US",
+  "i18n-ally.keystyle": "nested"
+}
