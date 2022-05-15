@@ -11,7 +11,7 @@
     "react-router-dom": "^6.3.0"
   },
   "scripts": {
-    "dev:client": "yarn parcel src/index.tsx --no-source-maps --dist-dir .parcel",
+    "dev:client": "yarn parcel src/index.tsx --no-source-maps --log-level=warn --dist-dir .parcel",
     "dev:server": "NODE_ENV=development nodemon --exec ts-node --emit ./server.tsx",
     "dev": "run-p dev:*"
   },
