@@ -1,21 +1,34 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Thinking from './pages/thinking';
-import Home from './pages/index';
-import NotFound from './components/NotFound';
-import './assets/app.css';
+import { lazy, Suspense } from 'react';
+
+const Home = lazy(() => import('./pages/index'));
+const Thinking = lazy(() => import('./pages/thinking'));
+const NotFound = lazy(() => import('./components/NotFound'));
 
 const ROUTES = [
   {
     path: '/',
-    element: <Home />,
+    element: (
+      <Suspense>
+        <Home />
+      </Suspense>
+    ),
   },
   {
     path: '/thinking',
-    element: <Thinking />,
+    element: (
+      <Suspense>
+        <Thinking />
+      </Suspense>
+    ),
   },
   {
     path: '*',
-    element: <NotFound />,
+    element: (
+      <Suspense>
+        <NotFound />
+      </Suspense>
+    ),
   },
 ];
 

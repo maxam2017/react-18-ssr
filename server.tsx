@@ -5,7 +5,9 @@ import path from 'path';
 
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
-import AppRoutes from './src/AppRoutes';
+import App from './src/App';
+
+const ABORT_DELAY = 10000;
 
 const app = new Koa();
 app.use(serve(path.join(__dirname, '/public')));
@@ -16,37 +18,41 @@ if (process.env.NODE_ENV === 'development') {
 
 const router = new Router();
 
-const template = (html: string) => `
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Web site created using create-react-app" />
-    <link rel="apple-touch-icon" href="/logo192.png" />
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="stylesheet" href="/app.css" />
-    <title>React App</title>
-  </head>
-  <body>
-    <div id='root'>
-      ${html}
-    </div>
-    <script src="./index.js"></script>
-  </body>
-</html>
-`;
+async function render(ctx: Koa.Context) {
+  let didError = false;
+
+  /**
+   * NOTE: use promise to force koa waiting for streaming.
+   */
+  return new Promise((_resolve, reject) => {
+    const stream = ReactDOMServer.renderToPipeableStream(
+      <StaticRouter location={ctx.url}>
+        <App />
+      </StaticRouter>,
+      {
+        bootstrapScripts: ['/index.js'],
+        onShellReady() {
+          ctx.respond = false;
+          ctx.res.statusCode = didError ? 500 : 200;
+          ctx.response.set('content-type', 'text/html');
+          stream.pipe(ctx.res);
+          ctx.res.end();
+        },
+        onError() {
+          didError = true;
+          reject();
+        },
+      },
+    );
+    setTimeout(() => {
+      stream.abort();
+      reject();
+    }, ABORT_DELAY);
+  });
+}
 
 router.get('(.*)', async (ctx) => {
-  ctx.body = template(
-    ReactDOMServer.renderToString(
-      <StaticRouter location={ctx.url}>
-        <AppRoutes />
-      </StaticRouter>,
-    ),
-  );
+  await render(ctx);
 });
 
 app.use(router.routes());
