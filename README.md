@@ -1,46 +1,56 @@
-# Getting Started with Create React App
+# React 18 + SSR 💪
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+After React v18 is published, I think it's time to build React app with server-side rendering (SSR) once with those new APIs. Before that, I always use Next.js when it comes to SSR.
 
-## Available Scripts
+## Caveat ⚠️
 
-In the project directory, you can run:
+This code isn't production-ready. Use with caution.
 
-### `npm start`
+## What's new
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+React v18 introduces new SSR Architecture. Thanks to the new Suspense API, the process of SSR isn't waterfall-like anymore. Below are two major unlocked SSR features:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+✅ Streaming HTML
 
-### `npm test`
+✅ Selective Hydration
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Want to know more? See https://github.com/reactwg/react-18/discussions/37 for details.
 
-### `npm run build`
+## Concept
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Why do we need SSR? It's an important and very common question in the interview.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+In the past, the web app was always rendered on the server in the form of HTML, which someone called Multiple Page Application (MPA). When the user clicked a link, the browser made an HTTP request to the server and waits for receiving the HTML of the next page.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+However, when some modern frontend library like React.js comes up, the web app becomes Single Page Application (SPA). What does this mean? It becomes static! We can route between different pages without making requests to the server because everything is bootstrapped on client side.
 
-### `npm run eject`
+Although SPA has a better user experience, it doesn't SEO-friendly and also makes the first painting longer. To solve those problems, the concept of Universal App (Hybrid) comes up, it combines the benefit of MPA and SPA, using server side rendering and making client routing works. Sounds great right? Moreover, most famous frameworks, like Next.js (React.js framework), Nuxt.js (Vue.js framework), and Svelte Kit (Svelte.js framework) already use this way to implement web apps.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Implementation
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+We need a node server to render dehydrated React elements and use ReactDOM.hydrate to make our DOM interactive. There're some steps listed below:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- setup a koa server (for rendering)
+- use ReactDOMServer to dehydrate
+  - renderToString
+  - renderToPipeableStream (new in React v18 ✨)
+- use ReactDOM.hydrate
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To here, we have already built the React app with the easiest SSR.
 
-## Learn More
+More Features:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Routing
+  - react-router-dom (BrowserRoutes & StaticRoutes)
+  - https://reactrouter.com/docs/en/v6/guides/ssr
+- Code Splitting
+  - the most basic way is using dynamic import because common bundler support chunking according this.
+  - React.Suspense + React.lazy (`renderToPipeableStream` is required!)
+  - https://reactjs.org/docs/code-splitting.html#code-splitting
+- Fetch data
+  - WIP...
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Links
+
+- https://github.com/reactwg/react-18/discussions/22
+- https://github.com/reactwg/react-18/discussions/114
