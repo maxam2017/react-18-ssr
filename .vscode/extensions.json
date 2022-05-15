@@ -1,4 +1,4 @@
 {
   // @recommended extensions
-  "recommendations": ["esbenp.prettier-vscode", "streetsidesoftware.code-spell-checker", "lokalise.i18n-ally"]
+  "recommendations": ["esbenp.prettier-vscode", "streetsidesoftware.code-spell-checker"]
 }

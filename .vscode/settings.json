@@ -1,14 +1,14 @@
 {
-  "editor.formatOnSave": true,
-  "editor.quickSuggestions": {
-    "strings": true
+  "[typescriptreact]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
   },
-  "css.validate": false,
-  "[svelte]": {
-    "editor.defaultFormatter": "svelte.svelte-vscode"
-  },
-  "i18n-ally.localesPaths": ["src/locales"],
-  "i18n-ally.displayLanguage": "en-US",
-  "i18n-ally.sourceLanguage": "en-US",
-  "i18n-ally.keystyle": "nested"
+  "[typescript]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
 }
