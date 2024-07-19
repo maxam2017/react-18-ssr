@@ -6,6 +6,7 @@ import path from 'path';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import App from './src/App';
+import Html from './src/components/Html';
 
 const ABORT_DELAY = 10000;
 
@@ -27,7 +28,9 @@ async function render(ctx: Koa.Context) {
   return new Promise((_resolve, reject) => {
     const stream = ReactDOMServer.renderToPipeableStream(
       <StaticRouter location={ctx.url}>
-        <App />
+        <Html title="React SSR Demo">
+          <App />
+        </Html>
       </StaticRouter>,
       {
         bootstrapScripts: ['/index.js'],
@@ -35,8 +38,8 @@ async function render(ctx: Koa.Context) {
           ctx.respond = false;
           ctx.res.statusCode = didError ? 500 : 200;
           ctx.response.set('content-type', 'text/html');
+
           stream.pipe(ctx.res);
-          ctx.res.end();
         },
         onError() {
           didError = true;
