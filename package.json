@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "koa": "^2.13.4",
-    "koa-router": "^10.1.1",
+    "koa": "^2.15.3",
+    "koa-router": "^11.0.2",
     "koa-static": "^5.0.0",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-router-dom": "^6.3.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.25.1"
   },
   "scripts": {
     "dev:client": "pnpm parcel src/index.tsx --no-source-maps --log-level=warn --dist-dir .parcel --hmr-port 4000",
@@ -22,21 +22,21 @@
     ]
   },
   "devDependencies": {
-    "@types/koa": "^2.13.4",
-    "@types/koa-router": "^7.4.4",
-    "@types/koa-static": "^4.0.2",
-    "@types/node": "^17.0.33",
-    "@types/react": "^18.0.9",
-    "@types/react-dom": "^18.0.3",
-    "nodemon": "^2.0.16",
+    "@types/koa": "^2.15.0",
+    "@types/koa-router": "^7.4.8",
+    "@types/koa-static": "^4.0.4",
+    "@types/node": "^18.19.41",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "nodemon": "^3.1.4",
     "npm-run-all": "^4.1.5",
     "parcel": "^2.12.0",
     "process": "^0.11.10",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.4"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   },
   "engines": {
     "node": "18"
   },
-  "packageManager": "pnpm@9.6.0+sha512.38dc6fba8dba35b39340b9700112c2fe1e12f10b17134715a4aa98ccf7bb035e76fd981cf0bb384dfa98f8d6af5481c2bef2f4266a24bfa20c34eb7147ce0b5e"
+  "packageManager": "pnpm@9.6.0"
 }
