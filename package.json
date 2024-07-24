@@ -11,9 +11,9 @@
     "react-router-dom": "^6.25.1"
   },
   "scripts": {
-    "dev:client": "pnpm parcel src/index.tsx --no-source-maps --log-level=warn --dist-dir .parcel --hmr-port 4000",
-    "dev:server": "NODE_ENV=development nodemon --exec ts-node --emit ./server.tsx",
-    "dev": "run-p dev:*"
+    "dev:client": "webpack serve",
+    "dev:server": "nodemon --exec ts-node --watch ./dist --ext js ./server.tsx",
+    "dev": "NODE_ENV=development run-p dev:*"
   },
   "eslintConfig": {
     "extends": [
@@ -22,18 +22,27 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.24.8",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
     "@types/koa": "^2.15.0",
     "@types/koa-router": "^7.4.8",
     "@types/koa-static": "^4.0.4",
     "@types/node": "^18.19.41",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "babel-loader": "^9.1.3",
     "nodemon": "^3.1.4",
     "npm-run-all": "^4.1.5",
-    "parcel": "^2.12.0",
-    "process": "^0.11.10",
+    "react-refresh": "^0.14.2",
+    "swc-minify-webpack-plugin": "^2.1.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
+    "type-fest": "^4.23.0",
+    "typescript": "^5.5.4",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   },
   "engines": {
     "node": "18"

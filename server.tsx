@@ -12,10 +12,7 @@ const ABORT_DELAY = 10000;
 
 const app = new Koa();
 app.use(serve(path.join(__dirname, '/public')));
-
-if (process.env.NODE_ENV === 'development') {
-  app.use(serve(path.join(__dirname, '/.parcel')));
-}
+app.use(serve(path.join(__dirname, '/dist')));
 
 const router = new Router();
 
